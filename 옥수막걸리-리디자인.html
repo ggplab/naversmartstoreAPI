@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>옥수 막걸리 - 프로모션</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #e8e8e8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 40px;
+  }
+
+  .card {
+    width: 780px;
+    min-height: 960px;
+    background: linear-gradient(180deg, #E6F2E0 0%, #EEF6EA 50%, #F5FAF2 100%);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ── 상단 헤더 ── */
+  .header {
+    padding: 56px 40px 0;
+    position: relative;
+    z-index: 10;
+  }
+  .new-badge {
+    font-size: 40px;
+    font-weight: 900;
+    color: #4A7A3A;
+    letter-spacing: 8px;
+  }
+  .product-title {
+    font-size: 21px;
+    font-weight: 400;
+    color: #6B9A58;
+    letter-spacing: 1px;
+    margin-top: 8px;
+  }
+
+  /* ── 병 3개 영역 ── */
+  .bottles-area {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 20px;
+    padding: 50px 40px 0;
+    position: relative;
+    z-index: 5;
+  }
+
+  /* ── 개별 병 ── */
+  .bottle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    filter: drop-shadow(0 12px 24px rgba(0,0,0,0.10));
+  }
+  .bottle.side { transform: scale(0.88); transform-origin: bottom center; opacity: 0.92; }
+
+  /* 뚜껑 */
+  .cap {
+    width: 32px;
+    height: 18px;
+    background: #fff;
+    border-radius: 4px 4px 0 0;
+    border: 1.5px solid #ddd;
+    border-bottom: none;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* 병목 */
+  .neck {
+    width: 28px;
+    height: 50px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.95) 40%, rgba(255,255,255,0.7) 100%);
+    border-left: 1.5px solid #e0e0e0;
+    border-right: 1.5px solid #e0e0e0;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* 병목→몸통 연결 (점점 넓어짐) */
+  .shoulder {
+    width: 28px;
+    height: 30px;
+    position: relative;
+    z-index: 2;
+  }
+  .shoulder::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 28px;
+    height: 30px;
+    border-left: 40px solid transparent;
+    border-right: 40px solid transparent;
+    border-top: 30px solid rgba(255,255,255,0.0);
+  }
+  /* 실제 어깨 곡선 - SVG 대체 */
+  .shoulder-shape {
+    width: 108px;
+    height: 35px;
+    background: transparent;
+    position: relative;
+  }
+  .shoulder-shape::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0; right: 0;
+    height: 35px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.95) 40%, rgba(255,255,255,0.7) 100%);
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    border-left: 1.5px solid #e0e0e0;
+    border-right: 1.5px solid #e0e0e0;
+    border-top: 1.5px solid #e0e0e0;
+  }
+
+  /* 병 몸통 */
+  .body-wrap {
+    width: 108px;
+    position: relative;
+  }
+  .bottle-body {
+    width: 108px;
+    height: 260px;
+    border-radius: 0 0 14px 14px;
+    border-left: 1.5px solid #e0e0e0;
+    border-right: 1.5px solid #e0e0e0;
+    border-bottom: 1.5px solid #e0e0e0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* 병 색상 - 내용물 */
+  .bottle-body.purple-body {
+    background: linear-gradient(90deg, #C8A8D8 0%, #DFC8EA 40%, #C8A8D8 100%);
+  }
+  .bottle-body.yellow-body {
+    background: linear-gradient(90deg, #E8D898 0%, #F5ECBE 40%, #E8D898 100%);
+  }
+  .bottle-body.pink-body {
+    background: linear-gradient(90deg, #E0B0B0 0%, #F0CCC8 40%, #E0B0B0 100%);
+  }
+
+  /* 라벨 */
+  .label {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 90px;
+    height: 130px;
+    background: #fff;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+  }
+
+  /* 라벨 캐릭터 원 */
+  .char-circle {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin-bottom: 6px;
+  }
+  .char-circle.purple-bg { background: #F0E4F6; }
+  .char-circle.yellow-bg { background: #FFF5D6; }
+  .char-circle.pink-bg { background: #FFE4DE; }
+
+  .label-brand {
+    font-size: 8px;
+    font-weight: 700;
+    color: #888;
+    letter-spacing: 1px;
+    margin-bottom: 2px;
+  }
+  .label-name {
+    font-size: 10px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 1px;
+  }
+  .label-eng {
+    font-size: 7px;
+    color: #aaa;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .label-vol {
+    font-size: 7px;
+    color: #bbb;
+    margin-top: 4px;
+  }
+
+  /* ── 하단 과일 장식 ── */
+  .fruit-deco {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 6px;
+    padding: 30px 60px 0;
+    position: relative;
+    z-index: 4;
+  }
+  .fruit {
+    font-size: 32px;
+    opacity: 0.85;
+    position: relative;
+  }
+  .fruit:nth-child(1) { font-size: 26px; transform: rotate(-10deg); bottom: 2px; }
+  .fruit:nth-child(2) { font-size: 36px; }
+  .fruit:nth-child(3) { font-size: 28px; transform: rotate(8deg); bottom: 4px; }
+  .fruit:nth-child(4) { font-size: 22px; transform: rotate(-5deg); }
+  .fruit:nth-child(5) { font-size: 34px; transform: rotate(12deg); bottom: 2px; }
+  .fruit:nth-child(6) { font-size: 24px; bottom: 6px; }
+  .fruit:nth-child(7) { font-size: 30px; transform: rotate(-8deg); }
+
+  /* ── 스펙 뱃지 ── */
+  .badge-area {
+    position: absolute;
+    top: 180px;
+    right: 50px;
+    z-index: 20;
+  }
+  .green-badge {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #8BC34A, #6B9A3A);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 12px rgba(107,154,58,0.3);
+  }
+  .green-badge .badge-top {
+    font-size: 7px;
+    color: rgba(255,255,255,0.8);
+    letter-spacing: 0.5px;
+  }
+  .green-badge .badge-main {
+    font-size: 14px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1;
+  }
+  .green-badge .badge-sub {
+    font-size: 9px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  /* ── 하단 바 ── */
+  .bottom-bar {
+    background: rgba(255,255,255,0.5);
+    padding: 24px 40px;
+    margin-top: 20px;
+    position: relative;
+    z-index: 10;
+  }
+  .brand-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: #5A8A48;
+    letter-spacing: 6px;
+  }
+  .brand-sub {
+    font-size: 11px;
+    color: #9AB88A;
+    margin-top: 4px;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── 맛 이름 표시 ── */
+  .flavor-labels {
+    display: flex;
+    justify-content: center;
+    gap: 44px;
+    padding: 20px 40px 0;
+    position: relative;
+    z-index: 10;
+  }
+  .flavor-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: #777;
+    letter-spacing: 0.5px;
+    position: relative;
+  }
+  .flavor-label::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 2px;
+    border-radius: 1px;
+  }
+  .flavor-label.fl-purple::before { background: #B388C9; }
+  .flavor-label.fl-yellow::before { background: #D4B84A; }
+  .flavor-label.fl-pink::before { background: #D48A7A; }
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- 헤더 -->
+  <div class="header">
+    <div class="new-badge">NEW</div>
+    <div class="product-title">옥수 과일 막걸리 3종</div>
+  </div>
+
+  <!-- 도수 뱃지 -->
+  <div class="badge-area">
+    <div class="green-badge">
+      <span class="badge-top">ALC.</span>
+      <span class="badge-main">7%</span>
+      <span class="badge-sub">750ml</span>
+    </div>
+  </div>
+
+  <!-- 병 3개 -->
+  <div class="bottles-area">
+
+    <!-- 고구마 (왼쪽) -->
+    <div class="bottle side">
+      <div class="cap"></div>
+      <div class="neck"></div>
+      <div class="shoulder-shape"></div>
+      <div class="body-wrap">
+        <div class="bottle-body purple-body">
+          <div class="label">
+            <div class="label-brand">옥수</div>
+            <div class="char-circle purple-bg">&#x1F360;</div>
+            <div class="label-name">고구마</div>
+            <div class="label-eng">Sweet Potato</div>
+            <div class="label-vol">Alc. 7% / 750ml</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 패션후르츠 (가운데, 메인) -->
+    <div class="bottle">
+      <div class="cap"></div>
+      <div class="neck"></div>
+      <div class="shoulder-shape"></div>
+      <div class="body-wrap">
+        <div class="bottle-body yellow-body">
+          <div class="label">
+            <div class="label-brand">옥수</div>
+            <div class="char-circle yellow-bg">&#x1F34B;</div>
+            <div class="label-name">패션후르츠</div>
+            <div class="label-eng">Passion Fruit</div>
+            <div class="label-vol">Alc. 7% / 750ml</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 블러드오렌지 (오른쪽) -->
+    <div class="bottle side">
+      <div class="cap"></div>
+      <div class="neck"></div>
+      <div class="shoulder-shape"></div>
+      <div class="body-wrap">
+        <div class="bottle-body pink-body">
+          <div class="label">
+            <div class="label-brand">옥수</div>
+            <div class="char-circle pink-bg">&#x1F34A;</div>
+            <div class="label-name">블러드오렌지</div>
+            <div class="label-eng">Blood Orange</div>
+            <div class="label-vol">Alc. 7% / 750ml</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 맛 이름 -->
+  <div class="flavor-labels">
+    <div class="flavor-label fl-purple">보라고구마 &middot; 노랑고구마</div>
+    <div class="flavor-label fl-yellow">패션후르츠</div>
+    <div class="flavor-label fl-pink">블러드 오렌지</div>
+  </div>
+
+  <!-- 과일 장식 -->
+  <div class="fruit-deco">
+    <span class="fruit">&#x1F360;</span>
+    <span class="fruit">&#x1F34B;</span>
+    <span class="fruit">&#x1F34A;</span>
+    <span class="fruit">&#x1F343;</span>
+    <span class="fruit">&#x1F34B;</span>
+    <span class="fruit">&#x1F360;</span>
+    <span class="fruit">&#x1F34A;</span>
+  </div>
+
+  <!-- 브랜드 -->
+  <div class="bottom-bar">
+    <div class="brand-name">옥수주조</div>
+    <div class="brand-sub">전통의 깊이에 과일의 신선함을 더하다</div>
+  </div>
+
+</div>
+
+</body>
+</html>

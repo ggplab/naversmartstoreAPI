@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>옥수 막걸리 - 쿠팡 상세페이지</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #ffffff;
+    color: #333;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  /* ── 섹션 공통 ── */
+  .section {
+    width: 100%;
+    padding: 60px 40px;
+    text-align: center;
+  }
+  .section-divider {
+    width: 80px;
+    height: 3px;
+    background: #6B8E5A;
+    margin: 0 auto 30px;
+    border-radius: 2px;
+  }
+
+  /* ── 히어로 섹션 ── */
+  .hero {
+    background: linear-gradient(135deg, #E8F5E2 0%, #F0F7EC 50%, #FFF9E6 100%);
+    padding: 70px 40px 50px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50px; right: -50px;
+    width: 200px; height: 200px;
+    background: rgba(107, 142, 90, 0.08);
+    border-radius: 50%;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: #6B8E5A;
+    color: #fff;
+    padding: 8px 24px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: 42px;
+    font-weight: 900;
+    color: #2D4A22;
+    line-height: 1.3;
+    margin-bottom: 12px;
+  }
+  .hero h1 span { color: #6B8E5A; }
+  .hero .sub {
+    font-size: 18px;
+    color: #666;
+    font-weight: 300;
+    margin-bottom: 30px;
+  }
+  .hero-specs {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 20px;
+  }
+  .hero-spec {
+    background: #fff;
+    border-radius: 16px;
+    padding: 18px 28px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  }
+  .hero-spec .val {
+    font-size: 28px;
+    font-weight: 900;
+    color: #6B8E5A;
+  }
+  .hero-spec .label {
+    font-size: 13px;
+    color: #999;
+    margin-top: 4px;
+  }
+
+  /* ── 제품 이미지 섹션 ── */
+  .product-image-section {
+    background: #FAFAFA;
+    padding: 50px 40px;
+    text-align: center;
+  }
+  .product-image-section img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 16px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+  }
+
+  /* ── 맛 소개 ── */
+  .flavors { background: #fff; padding: 70px 40px; }
+  .flavors h2 {
+    font-size: 32px;
+    font-weight: 900;
+    color: #2D4A22;
+    margin-bottom: 10px;
+  }
+  .flavors .desc {
+    font-size: 16px;
+    color: #888;
+    margin-bottom: 50px;
+  }
+  .flavor-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .flavor-card {
+    border-radius: 20px;
+    padding: 40px 24px 30px;
+    text-align: center;
+    transition: transform 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .flavor-card:hover { transform: translateY(-4px); }
+  .flavor-card.purple {
+    background: linear-gradient(180deg, #F3E8F9 0%, #FDF5FF 100%);
+    border: 2px solid #E8D0F0;
+  }
+  .flavor-card.yellow {
+    background: linear-gradient(180deg, #FFF8E1 0%, #FFFDF5 100%);
+    border: 2px solid #F5E6A8;
+  }
+  .flavor-card.pink {
+    background: linear-gradient(180deg, #FFE8E8 0%, #FFF5F5 100%);
+    border: 2px solid #F5C0C0;
+  }
+  .flavor-emoji {
+    font-size: 56px;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .flavor-name {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .flavor-card.purple .flavor-name { color: #7B3F9E; }
+  .flavor-card.yellow .flavor-name { color: #C48B00; }
+  .flavor-card.pink .flavor-name { color: #C45050; }
+  .flavor-eng {
+    font-size: 12px;
+    color: #aaa;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 14px;
+  }
+  .flavor-desc {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.7;
+  }
+  .flavor-tag {
+    display: inline-block;
+    margin-top: 14px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .flavor-card.purple .flavor-tag { background: #EAD6F5; color: #7B3F9E; }
+  .flavor-card.yellow .flavor-tag { background: #FFF0C2; color: #A07800; }
+  .flavor-card.pink .flavor-tag { background: #FFD4D4; color: #B03030; }
+
+  /* ── 특징 섹션 ── */
+  .features {
+    background: linear-gradient(180deg, #F7FAF5 0%, #FFFFFF 100%);
+    padding: 70px 40px;
+  }
+  .features h2 {
+    font-size: 32px;
+    font-weight: 900;
+    color: #2D4A22;
+    margin-bottom: 10px;
+  }
+  .features .desc {
+    font-size: 16px;
+    color: #888;
+    margin-bottom: 50px;
+  }
+  .feature-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  .feature-item {
+    background: #fff;
+    border-radius: 16px;
+    padding: 28px 24px;
+    text-align: left;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+    border: 1px solid #f0f0f0;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .feature-icon {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+    background: #F0F7EC;
+  }
+  .feature-text h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #2D4A22;
+    margin-bottom: 6px;
+  }
+  .feature-text p {
+    font-size: 13px;
+    color: #888;
+    line-height: 1.6;
+  }
+
+  /* ── 이런 분께 추천 ── */
+  .recommend {
+    background: #fff;
+    padding: 70px 40px;
+  }
+  .recommend h2 {
+    font-size: 32px;
+    font-weight: 900;
+    color: #2D4A22;
+    margin-bottom: 40px;
+  }
+  .recommend-list {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  .recommend-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 24px;
+    background: #F7FAF5;
+    border-radius: 14px;
+    margin-bottom: 12px;
+    font-size: 16px;
+    color: #444;
+  }
+  .recommend-item .check {
+    width: 32px; height: 32px;
+    background: #6B8E5A;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  /* ── 상품 정보 ── */
+  .info-table {
+    background: #FAFAFA;
+    padding: 70px 40px;
+  }
+  .info-table h2 {
+    font-size: 28px;
+    font-weight: 900;
+    color: #2D4A22;
+    margin-bottom: 30px;
+  }
+  .info-table table {
+    width: 100%;
+    max-width: 680px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    text-align: left;
+  }
+  .info-table th, .info-table td {
+    padding: 14px 20px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+  }
+  .info-table th {
+    background: #F0F7EC;
+    color: #2D4A22;
+    font-weight: 600;
+    width: 160px;
+  }
+  .info-table td {
+    color: #555;
+  }
+
+  /* ── 주의사항 ── */
+  .notice {
+    background: #FFF9E6;
+    padding: 50px 40px;
+  }
+  .notice h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #B8860B;
+    margin-bottom: 16px;
+  }
+  .notice ul {
+    list-style: none;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  .notice li {
+    padding: 8px 0;
+    font-size: 13px;
+    color: #888;
+    line-height: 1.6;
+    padding-left: 20px;
+    position: relative;
+  }
+  .notice li::before {
+    content: '!';
+    position: absolute;
+    left: 0;
+    color: #C4A230;
+    font-weight: 700;
+  }
+
+  /* ── 푸터 ── */
+  .footer {
+    background: #2D4A22;
+    color: #ccc;
+    padding: 40px;
+    text-align: center;
+    font-size: 13px;
+    line-height: 1.8;
+  }
+  .footer .brand {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+
+  /* ── 반응형 ── */
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 30px; }
+    .hero-specs { flex-direction: column; gap: 12px; align-items: center; }
+    .flavor-grid { grid-template-columns: 1fr; }
+    .feature-list { grid-template-columns: 1fr; }
+    .section { padding: 40px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── 히어로 ── -->
+<div class="hero section">
+  <div class="hero-badge">OKSOO BREWERY</div>
+  <h1><span>옥수</span> 막걸리<br>3종 세트</h1>
+  <p class="sub">전통의 깊이에 과일의 신선함을 더하다</p>
+  <div class="hero-specs">
+    <div class="hero-spec">
+      <div class="val">7%</div>
+      <div class="label">알코올 도수</div>
+    </div>
+    <div class="hero-spec">
+      <div class="val">750ml</div>
+      <div class="label">용량</div>
+    </div>
+    <div class="hero-spec">
+      <div class="val">3종</div>
+      <div class="label">프리미엄 라인업</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── 제품 이미지 ── -->
+<div class="product-image-section">
+  <img src="옥수막걸리.png" alt="옥수 막걸리 3종 - 보라고구마/노랑고구마, 패션후르츠, 블러드오렌지">
+</div>
+
+<!-- ── 맛 소개 ── -->
+<div class="flavors section">
+  <div class="section-divider"></div>
+  <h2>세 가지 특별한 맛</h2>
+  <p class="desc">엄선된 과일과 전통 누룩이 만든 프리미엄 막걸리</p>
+  <div class="flavor-grid">
+
+    <div class="flavor-card purple">
+      <span class="flavor-emoji">&#x1F360;</span>
+      <div class="flavor-name">고구마 막걸리</div>
+      <div class="flavor-eng">Sweet Potato</div>
+      <p class="flavor-desc">
+        보라고구마 &amp; 노랑고구마의<br>
+        달콤하고 부드러운 풍미가<br>
+        입안 가득 퍼집니다
+      </p>
+      <span class="flavor-tag">달콤 부드러움</span>
+    </div>
+
+    <div class="flavor-card yellow">
+      <span class="flavor-emoji">&#x1F34B;</span>
+      <div class="flavor-name">패션후르츠 막걸리</div>
+      <div class="flavor-eng">Passion Fruit</div>
+      <p class="flavor-desc">
+        열대 과일 패션후르츠의<br>
+        상큼한 산미와 달콤함이<br>
+        조화롭게 어우러집니다
+      </p>
+      <span class="flavor-tag">상큼 트로피컬</span>
+    </div>
+
+    <div class="flavor-card pink">
+      <span class="flavor-emoji">&#x1F34A;</span>
+      <div class="flavor-name">블러드오렌지 막걸리</div>
+      <div class="flavor-eng">Blood Orange</div>
+      <p class="flavor-desc">
+        블러드오렌지 특유의<br>
+        은은한 쓴맛과 과즙의 달콤함이<br>
+        깊은 여운을 남깁니다
+      </p>
+      <span class="flavor-tag">상쾌 시트러스</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── 특징 ── -->
+<div class="features section">
+  <div class="section-divider"></div>
+  <h2>옥수 막걸리의 특별함</h2>
+  <p class="desc">전통과 혁신이 만나 탄생한 프리미엄 막걸리</p>
+  <div class="feature-list">
+    <div class="feature-item">
+      <div class="feature-icon">&#x1F33E;</div>
+      <div class="feature-text">
+        <h4>전통 누룩 발효</h4>
+        <p>정성스러운 전통 방식의 누룩 발효로 깊은 맛과 풍미를 살렸습니다</p>
+      </div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">&#x1F34E;</div>
+      <div class="feature-text">
+        <h4>엄선된 원재료</h4>
+        <p>국내산 고구마, 수입 열대과일 등 최상급 원재료만을 사용합니다</p>
+      </div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">&#x1F37B;</div>
+      <div class="feature-text">
+        <h4>알코올 7도</h4>
+        <p>부담 없이 즐기기 좋은 도수로 다양한 자리에 어울립니다</p>
+      </div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">&#x1F381;</div>
+      <div class="feature-text">
+        <h4>선물용으로도 딱</h4>
+        <p>세련된 디자인의 750ml 병으로 선물하기에도 좋습니다</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── 추천 대상 ── -->
+<div class="recommend section">
+  <div class="section-divider"></div>
+  <h2>이런 분께 추천해요</h2>
+  <div class="recommend-list">
+    <div class="recommend-item">
+      <span class="check">&#x2713;</span>
+      새로운 맛의 막걸리를 찾고 계신 분
+    </div>
+    <div class="recommend-item">
+      <span class="check">&#x2713;</span>
+      가볍고 상큼한 술을 좋아하시는 분
+    </div>
+    <div class="recommend-item">
+      <span class="check">&#x2713;</span>
+      홈파티나 소모임에 특별한 술을 준비하고 싶은 분
+    </div>
+    <div class="recommend-item">
+      <span class="check">&#x2713;</span>
+      소중한 분께 감각적인 선물을 하고 싶은 분
+    </div>
+    <div class="recommend-item">
+      <span class="check">&#x2713;</span>
+      이마트에서 봤는데 집에서 편하게 받아보고 싶은 분
+    </div>
+  </div>
+</div>
+
+<!-- ── 상품 정보 ── -->
+<div class="info-table section">
+  <h2>상품 정보</h2>
+  <table>
+    <tr><th>상품명</th><td>옥수 막걸리 3종 세트</td></tr>
+    <tr><th>구성</th><td>고구마 막걸리 / 패션후르츠 막걸리 / 블러드오렌지 막걸리 (각 750ml)</td></tr>
+    <tr><th>알코올 도수</th><td>7도 (7%)</td></tr>
+    <tr><th>용량</th><td>750ml x 3병</td></tr>
+    <tr><th>제조사</th><td>옥수주조</td></tr>
+    <tr><th>보관방법</th><td>냉장보관 (2~8&#176;C)</td></tr>
+    <tr><th>유통기한</th><td>제조일로부터 별도 표기</td></tr>
+    <tr><th>포장</th><td>안전 포장 (에어캡 + 전용 박스)</td></tr>
+  </table>
+</div>
+
+<!-- ── 주의사항 ── -->
+<div class="notice section">
+  <h3>&#9888; 안내 및 주의사항</h3>
+  <ul>
+    <li>본 제품은 생막걸리로 반드시 냉장 보관해 주세요.</li>
+    <li>개봉 전 병을 가볍게 뒤집어 섞어주시면 더욱 맛있게 즐기실 수 있습니다.</li>
+    <li>침전물은 자연 발효 과정에서 생기는 것이며 품질에 이상이 없습니다.</li>
+    <li>19세 미만 청소년에게는 판매하지 않습니다.</li>
+    <li>임산부 및 수유 중인 여성은 음주를 삼가세요.</li>
+    <li>과도한 음주는 건강에 해롭습니다. 지나친 음주는 뇌졸중, 기억력 손상이나 치매를 유발합니다.</li>
+  </ul>
+</div>
+
+<!-- ── 푸터 ── -->
+<div class="footer">
+  <div class="brand">옥수주조</div>
+  전통의 깊이에 과일의 신선함을 더하다<br>
+  고객센터 문의 | 교환/반품 안내는 판매자 정보를 확인해 주세요
+</div>
+
+</body>
+</html>
